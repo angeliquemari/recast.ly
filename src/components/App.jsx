@@ -10,7 +10,8 @@ var App = () => (
         <div><h5><em>videoPlayer</em> view goes here</h5></div>
       </div>
       <div className="col-md-5">
-        <div><h5><em>videoList</em> view goes here</h5></div>
+        {/* <div><h5><em>videoList</em> view goes here</h5></div> */}
+        <div><VideoList /></div>
       </div>
     </div>
   </div>
@@ -19,3 +20,4 @@ var App = () => (
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 export default App;
+import VideoList from '../components/VideoList.js';
