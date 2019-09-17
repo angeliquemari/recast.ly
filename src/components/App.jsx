@@ -1,14 +1,14 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {data: exampleVideoData, selected: exampleVideoData[0]};
+    this.state = {data: initialVideoArray, selected: initialVideoArray[0]};
   }
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            ` <div><h5><em>search</em> view goes here</h5></div>
+            <div><Search onClick={this.onSearchClick.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
@@ -22,10 +22,25 @@ class App extends React.Component {
       </div>
     );
   }
+  componentDidMount() {
+    searchYouTube({
+      key: YOUTUBE_API_KEY,
+      query: 'dogs',
+      max: 5
+    }, function(fetchedVideoArray) {
+      this.setState({
+        data: fetchedVideoArray,
+        selected: fetchedVideoArray[0]
+      });
+    }.bind(this));
+  }
   onVideoEntryClick(video) {
     this.setState({
       selected: video
     });
+  }
+  onSearchClick() {
+    //console.log();
   }
 }
 
@@ -34,4 +49,42 @@ class App extends React.Component {
 export default App;
 import VideoList from '../components/VideoList.js';
 import VideoPlayer from '../components/VideoPlayer.js';
-import exampleVideoData from '../data/exampleVideoData.js';
+import searchYouTube from '../lib/searchYouTube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
+import Search from '../components/Search.js';
+// import exampleVideoData from '../data/exampleVideoData.js';
+
+var initialVideoArray =
+[{
+  kind: '',
+  etag: '',
+  id: {
+    kind: '',
+    videoId: ''
+  },
+  snippet: {
+    publishedAt: '',
+    channelId: '',
+    title: '',
+    description: '',
+    thumbnails: {
+      default: {
+        url: '',
+        width: 120,
+        height: 90
+      },
+      medium: {
+        url: '',
+        width: 320,
+        height: 180
+      },
+      high: {
+        url: '',
+        width: 480,
+        height: 360
+      }
+    },
+    channelTitle: '',
+    liveBroadcastContent: ''
+  }
+}];
