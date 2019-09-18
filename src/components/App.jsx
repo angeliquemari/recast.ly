@@ -39,8 +39,17 @@ class App extends React.Component {
       selected: video
     });
   }
-  onSearchClick() {
-    //console.log();
+  onSearchClick(inputQuery) {
+    searchYouTube({
+      key: YOUTUBE_API_KEY,
+      query: inputQuery,
+      max: 5
+    }, function(fetchedVideoArray) {
+      this.setState({
+        data: fetchedVideoArray,
+        selected: fetchedVideoArray[0]
+      });
+    }.bind(this));
   }
 }
 
@@ -52,7 +61,6 @@ import VideoPlayer from '../components/VideoPlayer.js';
 import searchYouTube from '../lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
 import Search from '../components/Search.js';
-// import exampleVideoData from '../data/exampleVideoData.js';
 
 var initialVideoArray =
 [{

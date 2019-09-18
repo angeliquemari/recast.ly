@@ -13,7 +13,6 @@ var searchYouTube = (options, callback) => {
     contentType: 'application/json',
     success: function (data) {
       console.log('Successfully got videos');
-      // console.log(data.items);
       callback(data.items);
     },
     error: function (data) {
